@@ -6,7 +6,7 @@ let userClickedPattern = [];
 let started = false;
 let level = 0;
 
-$(document).keypress(function() {
+$(document).keypress(function () {
   if (!started) {
     $("#level-title").text("Level " + level);
     nextSequence();
@@ -14,15 +14,14 @@ $(document).keypress(function() {
   }
 });
 
-$(".btn").click(function() {
-
+$(".btn").click(function () {
   let userChosenColour = $(this).attr("id");
   userClickedPattern.push(userChosenColour);
 
   playSound(userChosenColour);
   animatePress(userChosenColour);
 
-  checkAnswer(userClickedPattern.length-1); //(userClickedPattern.length-1)
+  checkAnswer(userClickedPattern.length - 1); //(userClickedPattern.length-1)
 });
 
 function nextSequence() {
@@ -33,15 +32,18 @@ function nextSequence() {
   let randomChosenColour = buttonColours[randomNumber];
   gamePattern.push(randomChosenColour);
 
-  $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100).fadeOut(100);
+  $("#" + randomChosenColour)
+    .fadeIn(100)
+    .fadeOut(100)
+    .fadeIn(100);
   playSound(randomChosenColour);
 }
 
-function checkAnswer(currenLevel) { //isme apn number pass karre to utne hi element compare honge.
+function checkAnswer(currenLevel) {
+  //isme apn number pass karre to utne hi element compare honge.
   if (gamePattern[currenLevel] === userClickedPattern[currenLevel]) {
     if (userClickedPattern.length === gamePattern.length) {
-
-      setTimeout(function() {
+      setTimeout(function () {
         nextSequence();
       }, 1000);
     }
@@ -50,7 +52,7 @@ function checkAnswer(currenLevel) { //isme apn number pass karre to utne hi elem
     $("body").addClass("game-over");
     $("#level-title").text("Game Over, Press Any Key to Restart");
 
-    setTimeout(function() {
+    setTimeout(function () {
       $("body").removeClass("game-over");
     }, 200);
 
@@ -60,7 +62,7 @@ function checkAnswer(currenLevel) { //isme apn number pass karre to utne hi elem
 
 function animatePress(currentColor) {
   $("#" + currentColor).addClass("pressed");
-  setTimeout(function() {
+  setTimeout(function () {
     $("#" + currentColor).removeClass("pressed");
   }, 100);
 }
